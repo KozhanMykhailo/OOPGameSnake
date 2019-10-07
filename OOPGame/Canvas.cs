@@ -10,15 +10,15 @@ namespace OOPGame
     class Canvas
     {
         private readonly uint _color;
-        public int ClientHeight { get; }
-        public int ClientWidth { get; }
+        private int ClientHeight { get; }
+        private int ClientWidth { get; }
 
 
         public Canvas(uint color, int clientHeight, int clientWidth)
         {
-            this._color = color;
-            this.ClientHeight = clientHeight;
-            this.ClientWidth = clientWidth;
+            _color = color;
+            ClientHeight = clientHeight;
+            ClientWidth = clientWidth;
         }
 
         public void Render(ConsoleGraphics g)

@@ -67,8 +67,10 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Food.cs" />
+    <Compile Include="RandomCoordinate.cs" />
     <Compile Include="SampleGameEngine.cs" />
-    <Compile Include="HeadSnake.cs" />
+    <Compile Include="Snake.cs" />
+    <Compile Include="SnakeAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="pacman.png">
