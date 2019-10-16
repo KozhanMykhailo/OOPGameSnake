@@ -13,7 +13,6 @@ namespace OOPGame
         private int ClientHeight { get; }
         private int ClientWidth { get; }
 
-
         public Canvas(uint color, int clientHeight, int clientWidth)
         {
             _color = color;

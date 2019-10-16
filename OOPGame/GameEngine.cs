@@ -14,10 +14,9 @@ namespace OOPGame
         private const uint colorCanvas = 0xFFd3fd45;
         private bool whileRepeat = true;
         private ConsoleGraphics graphics;
-        private List<IGameObject> gameObjects = new List<IGameObject>();
+        public List<IGameObject> gameObjects = new List<IGameObject>();
         Canvas canvas;
         RandomCoordinate randomCoordinate = new RandomCoordinate();
-        SnakeAction snakeAction;
 
         public GameEngine(ConsoleGraphics graphics)
         {
@@ -35,19 +34,23 @@ namespace OOPGame
             whileRepeat = true;
             currentScore = 0;
         }
+        
         public void RepeatFalse()
         {
             whileRepeat = false;
         }
+
         public void NewSnake()
         {
             AddObject(new Food(randomCoordinate.RandomY(graphics.ClientWidth), randomCoordinate.RandomX(graphics.ClientHeight)));
-            AddObject(new Snake(randomCoordinate.RandomY(graphics.ClientWidth), randomCoordinate.RandomX(graphics.ClientHeight), graphics));
+            AddObject(new Snake(graphics,randomCoordinate));
+            gameObjects.OfType<Snake>().First().SnakeAdd();
         }
 
         private const uint colorCanvasToRestart = 0xFFd7c645;
         private const uint colorTextToRestart1 = 0xFFc98d5a;
         private const uint colorTextToRestart2 = 0xFFFFFFFF;
+
         private void Restart()
         {
             canvas = new Canvas(colorCanvasToRestart, graphics.ClientWidth, graphics.ClientHeight);
@@ -78,17 +81,16 @@ namespace OOPGame
         public void Start()
         {
             canvas = new Canvas(colorCanvas, graphics.ClientWidth, graphics.ClientHeight);
-            snakeAction = new SnakeAction();
             while (whileRepeat)
             {
-                snakeAction.HeadMovement(gameObjects, this);
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    gameObjects[i].Update(this);
+                }
                 foreach (var obj in gameObjects)
                 {
                     obj.Render(graphics);
                 }
-                snakeAction.BodyEatingTest(gameObjects, this);
-                snakeAction.EatingFood(gameObjects, this, randomCoordinate, graphics);
-                snakeAction.BodyMovement(gameObjects, this);
                 graphics.FlipPages();
                 canvas.Render(graphics);
                 Thread.Sleep(100);

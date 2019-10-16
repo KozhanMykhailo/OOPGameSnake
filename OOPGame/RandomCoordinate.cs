@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOPGame
 {
-    class RandomCoordinate
+    public class RandomCoordinate
     {
         Random r = new Random();
         const int cons = 40;
