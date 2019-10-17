@@ -10,7 +10,7 @@ namespace OOPGame
     public abstract class GameEngine
     {
         public int maxScore;
-        public int currentScore;
+        public int currentScore = 1;
         private const uint colorCanvas = 0xFFd3fd45;
         private bool whileRepeat = true;
         private ConsoleGraphics graphics;
@@ -32,7 +32,7 @@ namespace OOPGame
             gameObjects.Clear();
             gameObjects.Clear();
             whileRepeat = true;
-            currentScore = 0;
+            currentScore = 1;
         }
         
         public void RepeatFalse()
@@ -44,7 +44,6 @@ namespace OOPGame
         {
             AddObject(new Food(randomCoordinate.RandomY(graphics.ClientWidth), randomCoordinate.RandomX(graphics.ClientHeight)));
             AddObject(new Snake(graphics,randomCoordinate));
-            gameObjects.OfType<Snake>().First().SnakeAdd();
         }
 
         private const uint colorCanvasToRestart = 0xFFd7c645;

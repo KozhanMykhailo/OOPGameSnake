@@ -70,6 +70,7 @@
     <Compile Include="RandomCoordinate.cs" />
     <Compile Include="SampleGameEngine.cs" />
     <Compile Include="Snake.cs" />
+    <Compile Include="SnakePart.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

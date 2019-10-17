@@ -7,81 +7,35 @@ namespace OOPGame
 
     public class Snake : IGameObject
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        private const int size = 40;
-        private const int speed = 40;
-        private List<Snake> snake = new List<Snake>();
+        private List<SnakePart> snake = new List<SnakePart>();
         private ConsoleGraphics g;
-        public delegate void StopGame();
-        int xSpeed, ySpeed;
         RandomCoordinate randomCoordinate;
 
         public Snake(ConsoleGraphics graphics, RandomCoordinate rand)
         {
             randomCoordinate = rand;
             g = graphics;
+            SnakeAdd();
         }
 
-        public Snake(int x, int y, ConsoleGraphics g)
-        {
-            X = x;
-            Y = y;
-            this.g = g;
-        }
         public void SnakeAdd()
         {
-            snake.Add(new Snake(randomCoordinate.RandomY(g.ClientWidth), randomCoordinate.RandomX(g.ClientHeight), g));
+            snake.Add(new SnakePart(randomCoordinate.RandomY(g.ClientWidth), randomCoordinate.RandomX(g.ClientHeight), g));
         }
         public void Render(ConsoleGraphics graphics)
         {
             foreach (var item in snake)
             {
-                item.RenderBody(g);
+                item.Render(g);
             }
-        }
-        public void RenderBody(ConsoleGraphics graphics)
-        {
-            graphics.DrawRectangle(0xFFFF0000, X, Y, size, size, 1);
         }
 
         public void Update(GameEngine engine)
         {
             BodyMovement(engine);
-            snake.OfType<Snake>().First().HeadMovement(engine);
+            snake.OfType<SnakePart>().First().Update(engine);
             BodyEatingTest(engine);
             EatingFood(engine, g);
-        }
-
-        public void HeadMovement(GameEngine engine)
-        {
-            StopGame stopGame = engine.RepeatFalse;
-            if (X >= g.ClientWidth || X < 0 || Y >= g.ClientHeight || Y < 0)
-            {
-                stopGame?.Invoke();
-            }
-            if (Input.IsKeyDown(Keys.LEFT))
-            {
-                ySpeed = 0;
-                xSpeed = -speed;
-            }
-            if (Input.IsKeyDown(Keys.RIGHT))
-            {
-                ySpeed = 0;
-                xSpeed = speed;
-            }
-            if (Input.IsKeyDown(Keys.UP))
-            {
-                ySpeed = -speed;
-                xSpeed = 0;
-            }
-            if (Input.IsKeyDown(Keys.DOWN))
-            {
-                ySpeed = speed;
-                xSpeed = 0;
-            }
-            X += xSpeed;
-            Y += ySpeed;
         }
 
         public void BodyMovement(GameEngine engine)
@@ -95,8 +49,8 @@ namespace OOPGame
 
         public void BodyEatingTest(GameEngine gameEngine)
         {
-            var headSnake = snake.OfType<Snake>().First();
-            var snakeBoby = snake.OfType<Snake>().Where(w => w != snake.OfType<Snake>().First()).ToList();
+            var headSnake = snake.OfType<SnakePart>().First();
+            var snakeBoby = snake.OfType<SnakePart>().Where(w => w != snake.OfType<SnakePart>().First()).ToList();
             var headSnakeX = headSnake.X;
             var headSnakeY = headSnake.Y;
             foreach (var body in snakeBoby)
@@ -111,7 +65,7 @@ namespace OOPGame
 
         public void EatingFood(GameEngine gameEngine, ConsoleGraphics graphics)
         {
-            var headSnake = snake.OfType<Snake>().First();
+            var headSnake = snake.OfType<SnakePart>().First();
             var foodForTheSnake = gameEngine.gameObjects.OfType<Food>().First();
             var foodForTheSnakeX = foodForTheSnake.X;
             var foodForTheSnakeY = foodForTheSnake.Y;
@@ -120,8 +74,8 @@ namespace OOPGame
             if (foodForTheSnakeX == headSnakeX && foodForTheSnakeY == headSnakeY)
             {
                 gameEngine.gameObjects.Remove(foodForTheSnake);
-                snake.Add(new Snake(foodForTheSnakeX, foodForTheSnakeY, graphics));
-                gameEngine.gameObjects.Add(new Food(randomCoordinate.RandomY(graphics.ClientWidth, headSnakeY, gameEngine.gameObjects), randomCoordinate.RandomX(graphics.ClientHeight, headSnakeX, gameEngine.gameObjects)));
+                snake.Add(new SnakePart(foodForTheSnakeX, foodForTheSnakeY, graphics));
+                gameEngine.gameObjects.Add(new Food(randomCoordinate.RandomY(graphics.ClientWidth, headSnakeY, this.snake), randomCoordinate.RandomX(graphics.ClientHeight, headSnakeX, this.snake)));
                 gameEngine.currentScore++;
             }
         }

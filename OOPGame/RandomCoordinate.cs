@@ -20,9 +20,8 @@ namespace OOPGame
             var result = r.Next(cons, clientWidth - cons);
             return result -= result % cons;
         }
-        public int RandomX(int clientHeight, int head, List<IGameObject> obj)
+        public int RandomX(int clientHeight, int head, List<SnakePart> obj)
         {
-            var snake = obj.OfType<Snake>().ToList();
             int newX = default;
             var boolForReturn = true;
             do
@@ -30,7 +29,7 @@ namespace OOPGame
                 var newXTemp = RandomX(clientHeight);
                 if (head != newXTemp)
                 {
-                    foreach (var item in snake)
+                    foreach (var item in obj)
                     {
                         if (item.X != newXTemp)
                         {
@@ -49,9 +48,8 @@ namespace OOPGame
             return newX;
         }
 
-        public int RandomY(int clientWidth, int head, List<IGameObject> obj)
+        public int RandomY(int clientWidth, int head, List<SnakePart> obj)
         {
-            var snake = obj.OfType<Snake>().ToList();
             int newY = default;
             var boolForReturn = true;
             do
@@ -59,7 +57,7 @@ namespace OOPGame
                 var newYTemp = RandomX(clientWidth);
                 if (head != newYTemp)
                 {
-                    foreach (var item in snake)
+                    foreach (var item in obj)
                     {
                         if (item.Y != newYTemp)
                         {
