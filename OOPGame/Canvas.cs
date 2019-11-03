@@ -10,19 +10,19 @@ namespace OOPGame
     class Canvas
     {
         private readonly uint _color;
-        private int ClientHeight { get; }
-        private int ClientWidth { get; }
+        private int _clientHeight;
+        private int _clientWidth;
 
         public Canvas(uint color, int clientHeight, int clientWidth)
         {
             _color = color;
-            ClientHeight = clientHeight;
-            ClientWidth = clientWidth;
+            _clientHeight = clientHeight;
+            _clientWidth = clientWidth;
         }
 
         public void Render(ConsoleGraphics g)
         {
-            g.FillRectangle(_color, 0, 0, ClientHeight, ClientWidth);
+            g.FillRectangle(_color, 0, 0, _clientHeight, _clientWidth);
         }
     }
 }

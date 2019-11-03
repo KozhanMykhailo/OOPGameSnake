@@ -75,7 +75,7 @@ namespace OOPGame
             {
                 gameEngine.gameObjects.Remove(foodForTheSnake);
                 snake.Add(new SnakePart(foodForTheSnakeX, foodForTheSnakeY, graphics));
-                gameEngine.gameObjects.Add(new Food(randomCoordinate.RandomY(graphics.ClientWidth, headSnakeY, this.snake), randomCoordinate.RandomX(graphics.ClientHeight, headSnakeX, this.snake)));
+                gameEngine.gameObjects.Add(new Food(randomCoordinate.RandomY(graphics.ClientWidth, headSnakeY, this.snake), randomCoordinate.RandomX(graphics.ClientHeight, headSnakeX, this.snake),randomCoordinate));
                 gameEngine.currentScore++;
             }
         }

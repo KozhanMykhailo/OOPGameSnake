@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -73,6 +74,11 @@ namespace OOPGame
             }
             while (boolForReturn);
             return newY;
+        }
+
+        public int RandomNumberIndex()
+        {
+            return r.Next(1,5);
         }
     }
 }

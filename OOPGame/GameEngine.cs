@@ -42,7 +42,7 @@ namespace OOPGame
 
         public void NewSnake()
         {
-            AddObject(new Food(randomCoordinate.RandomY(graphics.ClientWidth), randomCoordinate.RandomX(graphics.ClientHeight)));
+            AddObject(new Food(randomCoordinate.RandomY(graphics.ClientWidth), randomCoordinate.RandomX(graphics.ClientHeight),randomCoordinate));
             AddObject(new Snake(graphics,randomCoordinate));
         }
 
